@@ -8,21 +8,28 @@
 
 #import <Foundation/Foundation.h>
 #import "FBConnect.h"
+#import "FacebookData.h"
 
 #define FACEBOOK_APP_KEY @"441674662525532"
 
 
+// Facebook Manager
 @interface FacebookManager : NSObject <FBSessionDelegate, FBRequestDelegate, FBDialogDelegate>
 {
     Facebook* m_facebook;
     
-    id m_authCallbackSender;
-    SEL m_authCallback;
+    NSMutableDictionary* m_callbacks;
+    
+    UserInfo* m_userInfo;
+    NSMutableArray* m_friendList;
 }
 
 @property (nonatomic, readonly) BOOL IsAuthenticated;
 
 @property (nonatomic, retain) Facebook* Facebook;
+
+@property (nonatomic, readonly) UserInfo* _userInfo;
+@property (nonatomic, readonly) NSArray* _friendList;
 
 
 + (FacebookManager*)sharedInstance;
@@ -32,5 +39,9 @@
 - (void)Logout;
 
 - (BOOL)GetProfile:(id)caller withCallback:(SEL)callback;
+
+- (void)LoadPicture:(UserInfo*)userInfo;
+
+- (BOOL)GetFriendList:(id)caller withCallback:(SEL)callback;
 
 @end

@@ -18,6 +18,15 @@
 		CF7CF11215513B0200D1783F /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7CF11115513B0200D1783F /* FacebookManager.m */; };
 		CF7CF12615513D0600D1783F /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF7CF11915513D0600D1783F /* FBDialog.bundle */; };
 		CF7CF12715513D0600D1783F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7CF11F15513D0600D1783F /* libfacebook_ios_sdk.a */; };
+		CFD5DBDB1557BC0800A881D1 /* FacebookData.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD5DBDA1557BC0800A881D1 /* FacebookData.m */; };
+		CFD5DBDE1557D44D00A881D1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBDD1557D44D00A881D1 /* Parse.framework */; };
+		CFD5DBE01557D51200A881D1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBDF1557D51200A881D1 /* AudioToolbox.framework */; };
+		CFD5DBE21557D51E00A881D1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBE11557D51E00A881D1 /* CFNetwork.framework */; };
+		CFD5DBE41557D52700A881D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBE31557D52700A881D1 /* SystemConfiguration.framework */; };
+		CFD5DBE61557D53200A881D1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBE51557D53200A881D1 /* MobileCoreServices.framework */; };
+		CFD5DBE81557D55400A881D1 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBE71557D55400A881D1 /* libz.1.1.3.dylib */; };
+		CFD5DBEA1557D55D00A881D1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBE91557D55D00A881D1 /* Security.framework */; };
+		CFD5DBEC1557D56800A881D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBEB1557D56800A881D1 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +60,16 @@
 		CF7CF12315513D0600D1783F /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		CF7CF12415513D0600D1783F /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		CF7CF12515513D0600D1783F /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		CFD5DBD91557BC0700A881D1 /* FacebookData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookData.h; sourceTree = "<group>"; };
+		CFD5DBDA1557BC0800A881D1 /* FacebookData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookData.m; sourceTree = "<group>"; };
+		CFD5DBDD1557D44D00A881D1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		CFD5DBDF1557D51200A881D1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CFD5DBE11557D51E00A881D1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		CFD5DBE31557D52700A881D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CFD5DBE51557D53200A881D1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		CFD5DBE71557D55400A881D1 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		CFD5DBE91557D55D00A881D1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CFD5DBEB1557D56800A881D1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +77,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFD5DBEC1557D56800A881D1 /* QuartzCore.framework in Frameworks */,
+				CFD5DBEA1557D55D00A881D1 /* Security.framework in Frameworks */,
+				CFD5DBE81557D55400A881D1 /* libz.1.1.3.dylib in Frameworks */,
+				CF7CF0CF1550E89F00D1783F /* CoreGraphics.framework in Frameworks */,
+				CFD5DBE61557D53200A881D1 /* MobileCoreServices.framework in Frameworks */,
+				CFD5DBE41557D52700A881D1 /* SystemConfiguration.framework in Frameworks */,
+				CFD5DBE21557D51E00A881D1 /* CFNetwork.framework in Frameworks */,
+				CFD5DBE01557D51200A881D1 /* AudioToolbox.framework in Frameworks */,
 				CF7CF0CB1550E89F00D1783F /* UIKit.framework in Frameworks */,
 				CF7CF0CD1550E89F00D1783F /* Foundation.framework in Frameworks */,
-				CF7CF0CF1550E89F00D1783F /* CoreGraphics.framework in Frameworks */,
 				CF7CF12715513D0600D1783F /* libfacebook_ios_sdk.a in Frameworks */,
+				CFD5DBDE1557D44D00A881D1 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +116,14 @@
 		CF7CF0C91550E89F00D1783F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CFD5DBEB1557D56800A881D1 /* QuartzCore.framework */,
+				CFD5DBE91557D55D00A881D1 /* Security.framework */,
+				CFD5DBE71557D55400A881D1 /* libz.1.1.3.dylib */,
+				CFD5DBE51557D53200A881D1 /* MobileCoreServices.framework */,
+				CFD5DBE31557D52700A881D1 /* SystemConfiguration.framework */,
+				CFD5DBE11557D51E00A881D1 /* CFNetwork.framework */,
+				CFD5DBDF1557D51200A881D1 /* AudioToolbox.framework */,
+				CFD5DBDD1557D44D00A881D1 /* Parse.framework */,
 				CF7CF11F15513D0600D1783F /* libfacebook_ios_sdk.a */,
 				CF7CF0CA1550E89F00D1783F /* UIKit.framework */,
 				CF7CF0CC1550E89F00D1783F /* Foundation.framework */,
@@ -100,6 +135,8 @@
 		CF7CF0D01550E89F00D1783F /* FFLT */ = {
 			isa = PBXGroup;
 			children = (
+				CFD5DBD91557BC0700A881D1 /* FacebookData.h */,
+				CFD5DBDA1557BC0800A881D1 /* FacebookData.m */,
 				CF7CF11015513B0200D1783F /* FacebookManager.h */,
 				CF7CF11115513B0200D1783F /* FacebookManager.m */,
 				CF7CF0D91550E89F00D1783F /* AppDelegate.h */,
@@ -211,6 +248,7 @@
 				CF7CF0DB1550E89F00D1783F /* AppDelegate.m in Sources */,
 				CF7CF0DE1550E89F00D1783F /* ViewController.m in Sources */,
 				CF7CF11215513B0200D1783F /* FacebookManager.m in Sources */,
+				CFD5DBDB1557BC0800A881D1 /* FacebookData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +321,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FFLT/FFLT-Prefix.pch";
 				HEADER_SEARCH_PATHS = "facebook-ios-sdk/**";
@@ -300,6 +342,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FFLT/FFLT-Prefix.pch";
 				HEADER_SEARCH_PATHS = "facebook-ios-sdk/**";

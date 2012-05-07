@@ -73,10 +73,33 @@
 
 - (IBAction)SendRequest:(id)sender
 {
-    txtObjectInfo.text = @"";
-    [[FacebookManager sharedInstance].Facebook requestWithGraphPath:self.txtObjectId.text andDelegate:self];
+   
+    [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
+    
+    //[[FacebookManager sharedInstance] GetFriendList:self withCallback:@selector(_onFriendComplete)];
+    
     [txtObjectId resignFirstResponder];
 }
+
+- (void)_onProfileComplete
+{
+    UserInfo* info = [FacebookManager sharedInstance]._userInfo;
+    
+    txtObjectInfo.text = info._name;
+    
+    [[FacebookManager sharedInstance] LoadPicture:info];
+}
+
+
+- (void)_onFriendComplete
+{
+    NSArray* friendList = [FacebookManager sharedInstance]._friendList;
+    
+    UserInfo* info = [friendList objectAtIndex:1];
+    
+    txtObjectInfo.text = info._name;
+}
+
 
 - (void)_onAuthComplete
 {
@@ -85,59 +108,5 @@
     btnLogout.enabled = YES;
     btnLogout.alpha = 1;
 }
-
-/**
- * Called when the Facebook API request has returned a response.
- *
- * This callback gives you access to the raw response. It's called before
- * (void)request:(FBRequest *)request didLoad:(id)result,
- * which is passed the parsed response object.
- */
-- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response
-{
-    //TODO 
-}
-
-/**
- * Called when an error prevents the request from completing successfully.
- */
-- (void)request:(FBRequest *)request didFailWithError:(NSError *)error
-{
-    txtObjectInfo.text = [error localizedDescription];
-}
-
-/**
- * Called when a request returns and its response has been parsed into
- * an object.
- *
- * The resulting object may be a dictionary, an array or a string, depending
- * on the format of the API response. If you need access to the raw response,
- * use:
- *
- * (void)request:(FBRequest *)request
- *      didReceiveResponse:(NSURLResponse *)response
- */
-- (void)request:(FBRequest *)request didLoad:(id)result
-{
-   
-}
-
-/**
- * Called when a request returns a response.
- *
- * The result object is the raw response from the server of type NSData
- */
-- (void)request:(FBRequest *)request didLoadRawResponse:(NSData *)data
-{
-    self.txtObjectInfo.text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    UIImage* img = [[UIImage alloc] initWithData:data];
-    if( img != nil )
-    {
-        [imgProfile setImage:img];
-    }
-}
-
-
 
 @end

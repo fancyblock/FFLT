@@ -9,11 +9,27 @@
 #import "FacebookManager.h"
 
 
+@interface FacebookManager(private)
+
+- (void)addCallback:(id)sender withCallback:(SEL)callback forKey:(NSString*)key;
+- (void)removeCallback:(NSString*)key;
+
+@end
+
+
 @implementation FacebookManager
 
-@synthesize Facebook = m_facebook;
+static NSString* REQUEST_TYPE_USERINFO = @"user_info";
+static NSString* REQUEST_TYPE_FRIENDLIST = @"friend_list";
+static NSString* REQUEST_TYPE_PICTURE = @"user_picture";
 
 static FacebookManager* m_singleton = nil;
+
+
+@synthesize Facebook = m_facebook;
+@synthesize _userInfo = m_userInfo;
+@synthesize _friendList = m_friendList;
+
 
 
 /**
@@ -51,6 +67,8 @@ static FacebookManager* m_singleton = nil;
         m_facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
     }
     
+    m_callbacks = [[NSMutableDictionary alloc] init];
+    
     return self;
 }
 
@@ -76,15 +94,20 @@ static FacebookManager* m_singleton = nil;
  */
 - (void)Authenticate:(id)caller withCallback:(SEL)callback
 {
-    m_authCallbackSender = caller;
-    m_authCallback = callback;
+    // clean the old data 
+    [self removeCallback:@"auth"];
     
+    // authenticating
     if( self.IsAuthenticated == NO )
     {
+        // save the callback for invoke 
+        CallbackInfo* callbackInfo = [[CallbackInfo alloc] init];
+        callbackInfo._callbackSender = caller;
+        callbackInfo._callback = callback;
+        
+        [m_callbacks setValue:callbackInfo forKey:@"auth"];
+        
         NSArray *permissions = [[NSArray alloc] initWithObjects:
-                                @"user_likes", 
-                                @"read_stream",
-                                @"user_photos",
                                 @"publish_stream",
                                 nil];
         
@@ -118,9 +141,92 @@ static FacebookManager* m_singleton = nil;
         return NO;
     }
     
-    //TODO 
+    // set the callback
+    [self addCallback:caller withCallback:callback forKey:REQUEST_TYPE_USERINFO];
+    
+    // request for user info 
+    NSMutableDictionary* paraDic = [[NSMutableDictionary alloc] init];
+    [paraDic setValue:REQUEST_TYPE_USERINFO forKey:@"Type"];
+    
+    [m_facebook requestWithGraphPath:@"me" andParams:paraDic andDelegate:self];
     
     return YES;
+}
+
+
+/**
+ * @desc    load the user picture
+ * @para    userInfo
+ * @return  none
+ */
+- (void)LoadPicture:(UserInfo*)userInfo;
+{
+    NSString* graphPath = [NSString stringWithFormat:@"%@/picture", userInfo._uid];
+    
+    [m_facebook requestWithGraphPath:graphPath andDelegate:userInfo];
+}
+
+
+/**
+ * @desc    load friend list
+ * @para    caller
+ * @para    callback
+ * @return  none
+ */
+- (BOOL)GetFriendList:(id)caller withCallback:(SEL)callback
+{
+    if( self.IsAuthenticated == NO )
+    {
+        return NO;
+    }
+    
+    // set the callback
+    [self addCallback:caller withCallback:callback forKey:REQUEST_TYPE_FRIENDLIST];
+    
+    // request for friend list
+    NSMutableDictionary* paraDic = [[NSMutableDictionary alloc] init];
+    [paraDic setValue:REQUEST_TYPE_FRIENDLIST forKey:@"Type"];
+    
+    [m_facebook requestWithGraphPath:@"me/friends" andParams:paraDic andDelegate:self];
+    
+    return YES;
+}
+
+
+//------------------------------ private function --------------------------------- 
+
+
+/**
+ * @desc    add a callback to the dict
+ * @para    sender
+ * @para    callback
+ * @para    key
+ * @return  none
+ */
+- (void)addCallback:(id)sender withCallback:(SEL)callback forKey:(NSString*)key
+{
+    CallbackInfo* callbackInfo = [[CallbackInfo alloc] init];
+    callbackInfo._callbackSender = sender;
+    callbackInfo._callback = callback;
+    
+    [m_callbacks setObject:callbackInfo forKey:key];
+}
+
+
+/**
+ * @desc    remove the callback
+ * @para    key
+ * @return  none
+ */
+- (void)removeCallback:(NSString*)key
+{
+    CallbackInfo* oldCallbackInfo = [m_callbacks valueForKey:key];
+    
+    if( oldCallbackInfo != nil )
+    {
+        [m_callbacks removeObjectForKey:key];
+        [oldCallbackInfo release];
+    }
 }
 
 
@@ -141,10 +247,12 @@ static FacebookManager* m_singleton = nil;
     [defaults synchronize];
     
     // invoke the callback
-    if( m_authCallback != nil && m_authCallbackSender != nil )
+    CallbackInfo* callbackInfo = [m_callbacks objectForKey:@"auth"];
+    if( callbackInfo != nil )
     {
-        [m_authCallbackSender performSelector:m_authCallback];
+        [callbackInfo._callbackSender performSelector:callbackInfo._callback];
     }
+    
 }
 
 
@@ -192,8 +300,6 @@ static FacebookManager* m_singleton = nil;
 - (void)fbSessionInvalidated
 {
     NSLog( @"Session Invalidated" );
-    
-    //TODO 
 }
 
 
@@ -218,6 +324,68 @@ static FacebookManager* m_singleton = nil;
  *      didReceiveResponse:(NSURLResponse *)response
  */
 - (void)request:(FBRequest *)request didLoad:(id)result
+{
+    NSString* requestType = [request.params objectForKey:@"Type"];
+    
+    if( [requestType isEqualToString:REQUEST_TYPE_USERINFO] )
+    {
+        if( m_userInfo == nil )
+        {
+            m_userInfo = [[UserInfo alloc] init];
+        }
+        
+        m_userInfo._uid = [result objectForKey:@"id"];
+        m_userInfo._name = [result objectForKey:@"name"];
+        
+        //[self LoadPicture:m_userInfo];
+    }
+    
+    if( [requestType isEqualToString:REQUEST_TYPE_FRIENDLIST] )
+    {
+        if( m_friendList == nil )
+        {
+            m_friendList = [[NSMutableArray alloc] init];
+        }
+        
+        NSArray* friendData = [result objectForKey:@"data"];
+        
+        UserInfo* info = nil;
+        
+        int count = [friendData count];
+        for( int i = 0 ; i < count; i++ )
+        {
+            info = [[UserInfo alloc] init];
+            info._uid = [[friendData objectAtIndex:i] objectForKey:@"id"];
+            info._name = [[friendData objectAtIndex:i] objectForKey:@"name"];
+            
+            [m_friendList addObject:info];
+        }
+    }
+    
+    // invoke the callback
+    CallbackInfo* callbackInfo = [m_callbacks valueForKey:requestType];
+    
+    if( callbackInfo != nil )
+    {
+        if( callbackInfo._callback != nil && callbackInfo._callbackSender != nil )
+        {
+            [callbackInfo._callbackSender performSelector:callbackInfo._callback];
+        }
+        
+        [self removeCallback:requestType];
+    }
+    
+    [requestType release];
+    
+}
+
+
+/**
+ * Called when a request returns a response.
+ *
+ * The result object is the raw response from the server of type NSData
+ */
+- (void)request:(FBRequest *)request didLoadRawResponse:(NSData *)data
 {
     //TODO 
 }

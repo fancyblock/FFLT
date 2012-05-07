@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FacebookManager.h"
 
-@interface ViewController : UIViewController<FBRequestDelegate>
+@interface ViewController : UIViewController
 {
     //TODO 
 }
