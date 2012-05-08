@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF7B3F21155912F90097276A /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7B3F1F155912F90097276A /* LeaderboardViewController.m */; };
+		CF7B3F22155912F90097276A /* LeaderboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF7B3F20155912F90097276A /* LeaderboardViewController.xib */; };
+		CF7B3F251559260C0097276A /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7B3F241559260C0097276A /* close.png */; };
+		CF7B3F27155926130097276A /* fbicon.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7B3F26155926130097276A /* fbicon.png */; };
 		CF7CF0CB1550E89F00D1783F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7CF0CA1550E89F00D1783F /* UIKit.framework */; };
 		CF7CF0CD1550E89F00D1783F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7CF0CC1550E89F00D1783F /* Foundation.framework */; };
 		CF7CF0CF1550E89F00D1783F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7CF0CE1550E89F00D1783F /* CoreGraphics.framework */; };
@@ -30,6 +34,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF7B3F1E155912F90097276A /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardViewController.h; sourceTree = "<group>"; };
+		CF7B3F1F155912F90097276A /* LeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardViewController.m; sourceTree = "<group>"; };
+		CF7B3F20155912F90097276A /* LeaderboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardViewController.xib; sourceTree = "<group>"; };
+		CF7B3F241559260C0097276A /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = "facebook-ios-sdk/FBDialog.bundle/images/close.png"; sourceTree = "<group>"; };
+		CF7B3F26155926130097276A /* fbicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fbicon.png; path = "facebook-ios-sdk/FBDialog.bundle/images/fbicon.png"; sourceTree = "<group>"; };
 		CF7CF0C61550E89F00D1783F /* FFLT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFLT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7CF0CA1550E89F00D1783F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CF7CF0CC1550E89F00D1783F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,9 +104,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF7B3F28155926180097276A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				CF7B3F26155926130097276A /* fbicon.png */,
+				CF7B3F241559260C0097276A /* close.png */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		CF7CF0BB1550E89E00D1783F = {
 			isa = PBXGroup;
 			children = (
+				CF7B3F28155926180097276A /* Resource */,
 				CF7CF11615513D0600D1783F /* facebook-ios-sdk */,
 				CF7CF0D01550E89F00D1783F /* FFLT */,
 				CF7CF0C91550E89F00D1783F /* Frameworks */,
@@ -144,6 +163,9 @@
 				CF7CF0DC1550E89F00D1783F /* ViewController.h */,
 				CF7CF0DD1550E89F00D1783F /* ViewController.m */,
 				CF7CF0DF1550E89F00D1783F /* ViewController.xib */,
+				CF7B3F1E155912F90097276A /* LeaderboardViewController.h */,
+				CF7B3F1F155912F90097276A /* LeaderboardViewController.m */,
+				CF7B3F20155912F90097276A /* LeaderboardViewController.xib */,
 				CF7CF0D11550E89F00D1783F /* Supporting Files */,
 			);
 			path = FFLT;
@@ -234,6 +256,9 @@
 				CF7CF0D51550E89F00D1783F /* InfoPlist.strings in Resources */,
 				CF7CF0E11550E89F00D1783F /* ViewController.xib in Resources */,
 				CF7CF12615513D0600D1783F /* FBDialog.bundle in Resources */,
+				CF7B3F22155912F90097276A /* LeaderboardViewController.xib in Resources */,
+				CF7B3F251559260C0097276A /* close.png in Resources */,
+				CF7B3F27155926130097276A /* fbicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +274,7 @@
 				CF7CF0DE1550E89F00D1783F /* ViewController.m in Sources */,
 				CF7CF11215513B0200D1783F /* FacebookManager.m in Sources */,
 				CFD5DBDB1557BC0800A881D1 /* FacebookData.m in Sources */,
+				CF7B3F21155912F90097276A /* LeaderboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

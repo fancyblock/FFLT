@@ -336,8 +336,6 @@ static FacebookManager* m_singleton = nil;
         
         m_userInfo._uid = [result objectForKey:@"id"];
         m_userInfo._name = [result objectForKey:@"name"];
-        
-        //[self LoadPicture:m_userInfo];
     }
     
     if( [requestType isEqualToString:REQUEST_TYPE_FRIENDLIST] )

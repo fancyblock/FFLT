@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FacebookManager.h"
+#import "LeaderboardViewController.h"
 
 @interface ViewController : UIViewController
 {
@@ -16,15 +17,19 @@
 
 @property (retain,nonatomic) IBOutlet UIButton* btnLogin;
 @property (retain,nonatomic) IBOutlet UIButton* btnLogout;
-@property (retain,nonatomic) IBOutlet UITextField* txtObjectId;
-@property (retain,nonatomic) IBOutlet UITextView* txtObjectInfo;
-@property (retain,nonatomic) IBOutlet UIImageView* imgProfile;
+@property (retain,nonatomic) IBOutlet UITextField* txtScore;
+
+@property (retain,nonatomic) IBOutlet LeaderboardViewController* viewLeaderboard;
 
 
 - (IBAction)LoginFB:(id)sender;
 
 - (IBAction)LogoutFB:(id)sender;
 
-- (IBAction)SendRequest:(id)sender;
+- (IBAction)SubmitScore:(id)sender;
+
+- (IBAction)ShowLeaderboard:(id)sender;
+
+- (IBAction)CloseKeyboard:(id)sender;
 
 @end

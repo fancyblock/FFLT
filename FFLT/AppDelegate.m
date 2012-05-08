@@ -31,6 +31,7 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
+    // initial the parse
     [Parse setApplicationId:@"8gBQ4Cy6GsAoxQKWEsSK041BIpiV1q2RdshLfXN1" 
                   clientKey:@"n1uFcMDQxXBvV3lrXsWm6mxOpttoO66PDgTNsfXw"];
     

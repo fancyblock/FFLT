@@ -7,10 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "Parse/Parse.h"
 
 @interface ViewController (Private)
 
 - (void)_onAuthComplete;
+- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid;
 
 @end
 
@@ -18,9 +20,8 @@
 
 @synthesize btnLogin;
 @synthesize btnLogout;
-@synthesize txtObjectId;
-@synthesize txtObjectInfo;
-@synthesize imgProfile;
+@synthesize txtScore;
+@synthesize viewLeaderboard;
 
 
 - (void)viewDidLoad
@@ -42,6 +43,8 @@
         btnLogout.enabled = NO;
         btnLogout.alpha = 0.3;
     }
+    
+    self.viewLeaderboard = [[LeaderboardViewController alloc] initWithNibName:@"LeaderboardViewController" bundle:nil];
  
 }
 
@@ -49,6 +52,8 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    
+    [self.viewLeaderboard release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -71,33 +76,113 @@
     btnLogout.alpha = 0.3;
 }
 
-- (IBAction)SendRequest:(id)sender
+
+- (IBAction)ShowLeaderboard:(id)sender
 {
-   
-    [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
+    /*
+    [UIView beginAnimations:@"View Flip" context:nil];
+    [UIView setAnimationDuration:1.25];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
-    //[[FacebookManager sharedInstance] GetFriendList:self withCallback:@selector(_onFriendComplete)];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
+    [self.viewLeaderboard viewWillAppear:YES];
+    [self viewWillDisappear:YES];
+    [self.view addSubview:self.viewLeaderboard.view];
+    [self viewDidDisappear:YES];
+    [self.viewLeaderboard viewDidAppear:YES];
     
-    [txtObjectId resignFirstResponder];
+    [UIView commitAnimations];
+     */
+    
+    self.viewLeaderboard.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:self.viewLeaderboard animated:YES completion:NULL];
+    
 }
+
+
+- (IBAction)SubmitScore:(id)sender;
+{
+    if ( [self.txtScore.text isEqualToString:@""] )
+    {
+        return;
+    }
+    
+    if( [FacebookManager sharedInstance]._userInfo == nil )
+    {
+        [[FacebookManager sharedInstance] GetProfile:self withCallback:@selector(_onProfileComplete)];
+    }
+    else 
+    {
+        [self _onProfileComplete];
+    }
+}
+
+
+- (IBAction)CloseKeyboard:(id)sender
+{
+    [txtScore resignFirstResponder];
+}
+
+
+- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"GameMark2"];
+    
+    [query whereKey:@"uid" equalTo:uid];
+    [query findObjectsInBackgroundWithBlock:^(NSArray* objects, NSError* error)
+     {
+         if( error == nil )
+         {
+             PFObject *gameScore = nil;
+             
+             if( [objects count] == 0 )
+             {
+                 gameScore = [PFObject objectWithClassName:@"GameMark2"];
+             }
+             else 
+             {
+                 gameScore = [objects objectAtIndex:0];
+             }
+             
+             int oldMark = [[gameScore valueForKey:@"mark"] intValue];
+             
+             if( mark <= oldMark )
+             {
+                 return;
+             }
+             
+             [gameScore setObject:[NSNumber numberWithInt:mark] forKey:@"mark"];
+             [gameScore setObject:name forKey:@"name"];
+             [gameScore setObject:uid forKey:@"uid"];
+             [gameScore saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
+              {
+                  if( error == nil )
+                  {
+                      //TODO 
+                  }
+                  else 
+                  {
+                      //TODO 
+                  }
+                  
+                  self.txtScore.text = @"";
+              }];
+         }
+         else 
+         {
+             //TODO 
+         }
+         
+     }];
+
+}
+
 
 - (void)_onProfileComplete
 {
     UserInfo* info = [FacebookManager sharedInstance]._userInfo;
     
-    txtObjectInfo.text = info._name;
-    
-    [[FacebookManager sharedInstance] LoadPicture:info];
-}
-
-
-- (void)_onFriendComplete
-{
-    NSArray* friendList = [FacebookManager sharedInstance]._friendList;
-    
-    UserInfo* info = [friendList objectAtIndex:1];
-    
-    txtObjectInfo.text = info._name;
+    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid];
 }
 
 
