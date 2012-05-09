@@ -79,7 +79,7 @@
 
 - (IBAction)ShowLeaderboard:(id)sender
 {
-    self.viewLeaderboard.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    self.viewLeaderboard.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:self.viewLeaderboard animated:YES completion:NULL];
 }
 
@@ -105,6 +105,12 @@
 - (IBAction)CloseKeyboard:(id)sender
 {
     [txtScore resignFirstResponder];
+}
+
+
+- (IBAction)PostToWall:(id)sender
+{
+    //TODO 
 }
 
 
@@ -138,19 +144,7 @@
              [gameScore setObject:[NSNumber numberWithInt:mark] forKey:@"mark"];
              [gameScore setObject:name forKey:@"name"];
              [gameScore setObject:uid forKey:@"uid"];
-             [gameScore saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error)
-              {
-                  if( error == nil )
-                  {
-                      //TODO 
-                  }
-                  else 
-                  {
-                      //TODO 
-                  }
-                  
-                  self.txtScore.text = @"";
-              }];
+             [gameScore saveEventually];
          }
          else 
          {

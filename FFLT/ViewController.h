@@ -32,4 +32,6 @@
 
 - (IBAction)CloseKeyboard:(id)sender;
 
+- (IBAction)PostToWall:(id)sender;
+
 @end

@@ -22,6 +22,7 @@
 		CF7CF11215513B0200D1783F /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7CF11115513B0200D1783F /* FacebookManager.m */; };
 		CF7CF12615513D0600D1783F /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF7CF11915513D0600D1783F /* FBDialog.bundle */; };
 		CF7CF12715513D0600D1783F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7CF11F15513D0600D1783F /* libfacebook_ios_sdk.a */; };
+		CF8D30EC155A81F400F5870A /* LeaderboardHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF8D30EB155A81F400F5870A /* LeaderboardHeader.xib */; };
 		CFD5DBDB1557BC0800A881D1 /* FacebookData.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD5DBDA1557BC0800A881D1 /* FacebookData.m */; };
 		CFD5DBDE1557D44D00A881D1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBDD1557D44D00A881D1 /* Parse.framework */; };
 		CFD5DBE01557D51200A881D1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBDF1557D51200A881D1 /* AudioToolbox.framework */; };
@@ -69,6 +70,7 @@
 		CF7CF12315513D0600D1783F /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		CF7CF12415513D0600D1783F /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		CF7CF12515513D0600D1783F /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		CF8D30EB155A81F400F5870A /* LeaderboardHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaderboardHeader.xib; sourceTree = "<group>"; };
 		CFD5DBD91557BC0700A881D1 /* FacebookData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookData.h; sourceTree = "<group>"; };
 		CFD5DBDA1557BC0800A881D1 /* FacebookData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookData.m; sourceTree = "<group>"; };
 		CFD5DBDD1557D44D00A881D1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				CF7CF0DF1550E89F00D1783F /* ViewController.xib */,
 				CF7B3F1E155912F90097276A /* LeaderboardViewController.h */,
 				CF7B3F1F155912F90097276A /* LeaderboardViewController.m */,
+				CF8D30EB155A81F400F5870A /* LeaderboardHeader.xib */,
 				CF7B3F20155912F90097276A /* LeaderboardViewController.xib */,
 				CF7CF0D11550E89F00D1783F /* Supporting Files */,
 			);
@@ -259,6 +262,7 @@
 				CF7B3F22155912F90097276A /* LeaderboardViewController.xib in Resources */,
 				CF7B3F251559260C0097276A /* close.png in Resources */,
 				CF7B3F27155926130097276A /* fbicon.png in Resources */,
+				CF8D30EC155A81F400F5870A /* LeaderboardHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

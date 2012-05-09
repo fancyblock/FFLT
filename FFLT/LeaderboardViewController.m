@@ -240,4 +240,12 @@
     return cell;
 }
 
+
+// fixed font style. use custom view (UILabel) if you want something different
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"You and your friends";
+}
+
+
 @end
