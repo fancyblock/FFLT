@@ -79,24 +79,8 @@
 
 - (IBAction)ShowLeaderboard:(id)sender
 {
-    /*
-    [UIView beginAnimations:@"View Flip" context:nil];
-    [UIView setAnimationDuration:1.25];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
-    [self.viewLeaderboard viewWillAppear:YES];
-    [self viewWillDisappear:YES];
-    [self.view addSubview:self.viewLeaderboard.view];
-    [self viewDidDisappear:YES];
-    [self.viewLeaderboard viewDidAppear:YES];
-    
-    [UIView commitAnimations];
-     */
-    
     self.viewLeaderboard.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:self.viewLeaderboard animated:YES completion:NULL];
-    
 }
 
 

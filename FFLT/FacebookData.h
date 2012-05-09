@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString* _uid;
 @property (nonatomic, retain) NSString* _name;
 @property (nonatomic, retain) UIImage* _pic;
+@property (nonatomic, retain) UIImageView* _imageHost;
 
 @end
 

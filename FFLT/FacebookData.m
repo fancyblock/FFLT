@@ -14,6 +14,7 @@
 @synthesize _uid;
 @synthesize _name;
 @synthesize _pic;
+@synthesize _imageHost;
 
 
 /**
@@ -24,6 +25,11 @@
 - (void)request:(FBRequest *)request didLoadRawResponse:(NSData *)data
 {
     _pic = [[UIImage alloc] initWithData:data];
+    
+    if( _imageHost != nil )
+    {
+        [_imageHost setImage:_pic];
+    }
 }
 
 
