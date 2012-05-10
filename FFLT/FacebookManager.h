@@ -44,4 +44,6 @@
 
 - (BOOL)GetFriendList:(id)caller withCallback:(SEL)callback;
 
+- (void)PublishToWall:(NSString*)info;
+
 @end

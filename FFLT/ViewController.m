@@ -12,7 +12,8 @@
 @interface ViewController (Private)
 
 - (void)_onAuthComplete;
-- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid to:(NSString*)table;
+- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid to:(NSString*)table week:(BOOL)isWeek;
+- (BOOL)isThisWeek:(NSDate*)date;
 
 @end
 
@@ -112,11 +113,11 @@
 {
     NSLog( @"Post the info to wall" );
     
-    //TODO 
+    [[FacebookManager sharedInstance] PublishToWall:@"Wahahahaa test~"];
 }
 
 
-- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid to:(NSString*)table;
+- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid to:(NSString*)table week:(BOOL)isWeek
 {
     PFQuery* query = [PFQuery queryWithClassName:table];
     
@@ -138,7 +139,17 @@
              
              int oldMark = [[gameScore valueForKey:@"mark"] intValue];
              
-             if( mark <= oldMark )
+             if( isWeek )
+             {
+                 if( [self isThisWeek:gameScore.updatedAt] )
+                 {
+                     if( mark <= oldMark )
+                     {
+                         return;
+                     }
+                 }
+             }
+             else if( mark <= oldMark )
              {
                  return;
              }
@@ -157,8 +168,46 @@
 {
     UserInfo* info = [FacebookManager sharedInstance]._userInfo;
     
-    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid to:@"GameMark_week"];
-    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid to:@"GameMark2"];
+    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid to:@"GameMark_week" week:YES];
+    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid to:@"GameMark2" week:NO];
+}
+
+
+- (BOOL)isThisWeek:(NSDate*)date
+{
+    /*
+     NSTimeInterval interval = -[date timeIntervalSinceNow];
+     
+     if( interval > ONE_WEEK_TIME )
+     {
+     return NO;
+     }
+     */
+    
+    NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendarUnit flags = NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit|NSWeekdayOrdinalCalendarUnit|NSMinuteCalendarUnit;
+    NSDateComponents* dateInfo = [calendar components:flags fromDate:date];
+    NSDateComponents* curDateInfo = [calendar components:flags fromDate:[NSDate date]];
+    [calendar release];
+    
+    //[TEMP]
+    if( [dateInfo year] != [curDateInfo year] ||
+       [dateInfo month] != [curDateInfo month] ||
+       [dateInfo day] != [curDateInfo day] ||
+       [dateInfo hour] != [curDateInfo hour] ||
+       [dateInfo minute] != [curDateInfo minute] )
+    {
+        return NO;
+    }
+    
+    /*
+     if( [dateInfo week] != [curDateInfo week] )
+     {
+     return NO;
+     }
+     */
+    
+    return YES;
 }
 
 

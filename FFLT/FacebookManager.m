@@ -193,6 +193,25 @@ static FacebookManager* m_singleton = nil;
 }
 
 
+/**
+ * @desc    post something to the wall
+ * @para    info
+ * @return  none
+ */
+- (void)PublishToWall:(NSString*)info
+{
+    NSMutableDictionary* paras = [[NSMutableDictionary alloc] init];
+    
+    //message, picture, link, name, caption, description, source, place, tags
+    
+    [paras setObject:info forKey:@"message"];
+    [paras setObject:@"ttt" forKey:@"name"];
+    //TODO 
+    
+    [m_facebook dialog:@"feed" andParams:paras andDelegate:nil];
+}
+
+
 //------------------------------ private function --------------------------------- 
 
 
