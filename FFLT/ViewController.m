@@ -12,7 +12,7 @@
 @interface ViewController (Private)
 
 - (void)_onAuthComplete;
-- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid;
+- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid to:(NSString*)table;
 
 @end
 
@@ -110,13 +110,15 @@
 
 - (IBAction)PostToWall:(id)sender
 {
+    NSLog( @"Post the info to wall" );
+    
     //TODO 
 }
 
 
-- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid
+- (void)submitMark:(int)mark withName:(NSString*)name andUID:(NSString*)uid to:(NSString*)table;
 {
-    PFQuery* query = [PFQuery queryWithClassName:@"GameMark2"];
+    PFQuery* query = [PFQuery queryWithClassName:table];
     
     [query whereKey:@"uid" equalTo:uid];
     [query findObjectsInBackgroundWithBlock:^(NSArray* objects, NSError* error)
@@ -127,7 +129,7 @@
              
              if( [objects count] == 0 )
              {
-                 gameScore = [PFObject objectWithClassName:@"GameMark2"];
+                 gameScore = [PFObject objectWithClassName:table];
              }
              else 
              {
@@ -146,11 +148,6 @@
              [gameScore setObject:uid forKey:@"uid"];
              [gameScore saveEventually];
          }
-         else 
-         {
-             //TODO 
-         }
-         
      }];
 
 }
@@ -160,7 +157,8 @@
 {
     UserInfo* info = [FacebookManager sharedInstance]._userInfo;
     
-    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid];
+    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid to:@"GameMark_week"];
+    [self submitMark:[self.txtScore.text intValue] withName:info._name andUID:info._uid to:@"GameMark2"];
 }
 
 

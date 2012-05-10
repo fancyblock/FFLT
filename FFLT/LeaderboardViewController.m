@@ -30,6 +30,7 @@
 
 @synthesize viewLeaderboard;
 @synthesize viewLoading;
+@synthesize controlBoardType;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,8 +46,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-//    [self loadLeaderboard];
 }
 
 - (void)viewDidUnload
@@ -68,18 +67,15 @@
     [self loadLeaderboard];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    //TODO 
-}
-
 - (IBAction)Close:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (IBAction)ChangeType:(id)sender
+{
+    [self loadLeaderboard];
+}
 
 - (void)loadLeaderboard
 {
@@ -109,7 +105,18 @@
 
 - (void)getMark
 {
-    PFQuery* query = [PFQuery queryWithClassName:@"GameMark2"];
+    int selectIndex = self.controlBoardType.selectedSegmentIndex;
+    
+    PFQuery* query = nil;
+    
+    if( selectIndex == 0 )  // week
+    {
+        query = [PFQuery queryWithClassName:WEEK_MARK];
+    }
+    else
+    {
+        query = [PFQuery queryWithClassName:ALL_MARK];
+    }
     
     int count = [[FacebookManager sharedInstance]._friendList count];
     UserInfo* userInfo;
@@ -129,12 +136,43 @@
      {
          if( error == nil )
          {
-             m_leaderboard = [[NSMutableArray alloc] init];
-             
-             int count = [objects count];
+             int i;
+             int count;
              LeaderboardItem* item = nil;
-             for( int i = 0; i < count; i++ )
+              
+             if( m_leaderboard == nil )
              {
+                 m_leaderboard = [[NSMutableArray alloc] init];
+             }
+             else 
+             {
+                 count = [m_leaderboard count];
+                 
+                 for( i = 0; i < count; i++ )
+                 {
+                     item = [m_leaderboard objectAtIndex:i];
+                     
+                     [item release];
+                 }
+                 
+                 [m_leaderboard removeAllObjects];
+             }
+             
+             count = [objects count];
+             for( i = 0; i < count; i++ )
+             {
+                 if( selectIndex == 0 )
+                 {
+                     PFObject* obj = [objects objectAtIndex:i];
+                     NSDate* objDate = obj.updatedAt;
+                     NSTimeInterval interval = -[objDate timeIntervalSinceNow];
+                     
+                     if( interval > ONE_WEEK_TIME )
+                     {
+                         continue;
+                     }
+                 }
+                 
                  item = [[LeaderboardItem alloc] init];
                  
                  item._name = [[objects objectAtIndex:i] objectForKey:@"name"];
@@ -166,10 +204,6 @@
              [viewLoading stopAnimating];
              [viewLeaderboard setHidden:NO];
              [self.viewLeaderboard reloadData];
-         }
-         else 
-         {
-             //TODO 
          }
      }];
     

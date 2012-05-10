@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "FacebookManager.h"
 
+#define WEEK_MARK   @"GameMark_week"
+#define ALL_MARK    @"GameMark2"
+#define ONE_WEEK_TIME 604800
+
 
 @interface LeaderboardItem : NSObject
 
@@ -26,7 +30,11 @@
 
 @property (nonatomic, retain) IBOutlet UITableView* viewLeaderboard;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* viewLoading;
+@property (nonatomic, retain) IBOutlet UISegmentedControl* controlBoardType;
+
 
 - (IBAction)Close:(id)sender;
+
+- (IBAction)ChangeType:(id)sender;
 
 @end
