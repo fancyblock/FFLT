@@ -35,6 +35,13 @@
     [Parse setApplicationId:@"8gBQ4Cy6GsAoxQKWEsSK041BIpiV1q2RdshLfXN1" 
                   clientKey:@"n1uFcMDQxXBvV3lrXsWm6mxOpttoO66PDgTNsfXw"];
     
+    // regisit the push notification
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+                                                    UIRemoteNotificationTypeAlert|
+                                                    UIRemoteNotificationTypeSound];
+    
+    [PFPush handlePush:launchOptions];
+    
     return YES;
 }
 
@@ -78,5 +85,24 @@
     return [[FacebookManager sharedInstance].Facebook handleOpenURL:url];
 }
 
+// callback when regisit success
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0)
+{
+    // send the device token to the push
+    [PFPush storeDeviceToken:deviceToken];
+    [PFPush subscribeToChannelInBackground:@""];
+}
+
+// callback when notification receive
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0)
+{
+    //TODO 
+}
+
+// regisit push notification fail
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0)
+{
+    //TODO 
+}
 
 @end

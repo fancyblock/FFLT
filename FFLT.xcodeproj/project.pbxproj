@@ -22,6 +22,8 @@
 		CF7CF11215513B0200D1783F /* FacebookManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7CF11115513B0200D1783F /* FacebookManager.m */; };
 		CF7CF12615513D0600D1783F /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CF7CF11915513D0600D1783F /* FBDialog.bundle */; };
 		CF7CF12715513D0600D1783F /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7CF11F15513D0600D1783F /* libfacebook_ios_sdk.a */; };
+		CF906A821560EFD8009AFEFC /* fflt_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CF906A811560EFD8009AFEFC /* fflt_icon.png */; };
+		CF906AA915610FEA009AFEFC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF906AA815610FEA009AFEFC /* Default.png */; };
 		CFD5DBDB1557BC0800A881D1 /* FacebookData.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD5DBDA1557BC0800A881D1 /* FacebookData.m */; };
 		CFD5DBDE1557D44D00A881D1 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBDD1557D44D00A881D1 /* Parse.framework */; };
 		CFD5DBE01557D51200A881D1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFD5DBDF1557D51200A881D1 /* AudioToolbox.framework */; };
@@ -69,6 +71,9 @@
 		CF7CF12315513D0600D1783F /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
 		CF7CF12415513D0600D1783F /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		CF7CF12515513D0600D1783F /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		CF906A811560EFD8009AFEFC /* fflt_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fflt_icon.png; sourceTree = "<group>"; };
+		CF906AA815610FEA009AFEFC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CF906AAA15611023009AFEFC /* FFLT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FFLT.entitlements; sourceTree = "<group>"; };
 		CFD5DBD91557BC0700A881D1 /* FacebookData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookData.h; sourceTree = "<group>"; };
 		CFD5DBDA1557BC0800A881D1 /* FacebookData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookData.m; sourceTree = "<group>"; };
 		CFD5DBDD1557D44D00A881D1 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -116,6 +121,8 @@
 		CF7CF0BB1550E89E00D1783F = {
 			isa = PBXGroup;
 			children = (
+				CF906AA815610FEA009AFEFC /* Default.png */,
+				CF906A811560EFD8009AFEFC /* fflt_icon.png */,
 				CF7B3F28155926180097276A /* Resource */,
 				CF7CF11615513D0600D1783F /* facebook-ios-sdk */,
 				CF7CF0D01550E89F00D1783F /* FFLT */,
@@ -154,6 +161,7 @@
 		CF7CF0D01550E89F00D1783F /* FFLT */ = {
 			isa = PBXGroup;
 			children = (
+				CF906AAA15611023009AFEFC /* FFLT.entitlements */,
 				CFD5DBD91557BC0700A881D1 /* FacebookData.h */,
 				CFD5DBDA1557BC0800A881D1 /* FacebookData.m */,
 				CF7CF11015513B0200D1783F /* FacebookManager.h */,
@@ -259,6 +267,8 @@
 				CF7B3F22155912F90097276A /* LeaderboardViewController.xib in Resources */,
 				CF7B3F251559260C0097276A /* close.png in Resources */,
 				CF7B3F27155926130097276A /* fbicon.png in Resources */,
+				CF906A821560EFD8009AFEFC /* fflt_icon.png in Resources */,
+				CF906AA915610FEA009AFEFC /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +357,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -360,6 +372,7 @@
 					"\"$(SRCROOT)/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -368,6 +381,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -381,6 +396,7 @@
 					"\"$(SRCROOT)/facebook-ios-sdk\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

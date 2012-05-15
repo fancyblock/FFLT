@@ -175,37 +175,16 @@
 
 - (BOOL)isThisWeek:(NSDate*)date
 {
-    /*
-     NSTimeInterval interval = -[date timeIntervalSinceNow];
-     
-     if( interval > ONE_WEEK_TIME )
-     {
-     return NO;
-     }
-     */
-    
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSCalendarUnit flags = NSHourCalendarUnit|NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSWeekCalendarUnit|NSWeekdayCalendarUnit|NSWeekdayOrdinalCalendarUnit|NSMinuteCalendarUnit;
     NSDateComponents* dateInfo = [calendar components:flags fromDate:date];
     NSDateComponents* curDateInfo = [calendar components:flags fromDate:[NSDate date]];
     [calendar release];
     
-    //[TEMP]
-    if( [dateInfo year] != [curDateInfo year] ||
-       [dateInfo month] != [curDateInfo month] ||
-       [dateInfo day] != [curDateInfo day] ||
-       [dateInfo hour] != [curDateInfo hour] ||
-       [dateInfo minute] != [curDateInfo minute] )
+    if( [dateInfo week] != [curDateInfo week] )
     {
         return NO;
     }
-    
-    /*
-     if( [dateInfo week] != [curDateInfo week] )
-     {
-     return NO;
-     }
-     */
     
     return YES;
 }
